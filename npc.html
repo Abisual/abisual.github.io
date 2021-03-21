@@ -1,0 +1,412 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Perfect World Database - NPC Search</title>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-ipad.png" />
+    <link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-iphone4.png" />
+    <link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-ipad3.png" />
+    <base href="/ru/" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="content-language" content="ru" />
+    <meta http-equiv="description" content="База Данных Perfect World" />
+    <meta http-equiv="keywords" content="MMO, PW, Perfect World, Perfect, World, Online, Онлайн, Multiplayer Massive Online, RPG, Database, База данных, items, monsters, NPC, maps, предмет, монстр, карты, квесты, quest" />
+    <link rel="stylesheet" type="text/css" media="all" href="/css/style.css?12" />
+    <script type="text/javascript" src="/js/scripts.js?02"></script>
+    <script type="text/javascript" src="/js/main.js?10"></script>
+    </head>
+<body>
+<div id="logo">
+	<h1><a href="">Perfect World</a></h1>
+	<div id="hLang">
+        <!--a href="/my-cn/npc" title="Malaysian/Chinese"><span class="mycn"></span></a-->
+        <a href="/my/npc" title="Malaysian/English"><span class="my"></span></a>
+        <a href="/ph/npc" title="PW - Philippines"><span class="ph"></span></a>
+        <a href="/jp/npc" title="PW - Japan"><span class="jp"></span></a>
+        <a href="/br/npc" title="PW - Brazil"><span class="br"></span></a>
+        <a href="/cn/npc" title="PW - China"><span class="cn"></span></a>
+        <a href="/de/npc" title="PWI - EU - German"><span class="de"></span></a>
+        <a href="/fr/npc" title="PWI - EU - French"><span class="fr"></span></a>
+        <a href="/pwi/npc" title="Perfect World International"><span class="pwi"></span></a>
+        <a href="/ru/npc" title="Russian"><span class="ru"></span></a>
+        <span>Server:</span>
+	</div>
+	<div id="hSearch">
+		<form action="search" method="post">
+			<div><input type="submit" class="hB" value="Search" /></div>
+			<div><input name="s" type="text" value="" /></div>
+		</form>
+	</div>
+</div>
+
+<div class="top_ads">
+<a target="_blank" title="ThePW [1.3.6]: Классический игровой сервер с огромным онлайном 900+ игроков!" href="http://thepw.ru/kak-nachat-igrat?utm_source=pwdatabase_net&utm_medium=banner&utm_campaign=pwdatabase_net_banner_ru_728_90_top"><img width="728" height="90" src="http://thepw.ru/images/banners/v4/728x90_900_RUS.gif" alt="ThePW [1.3.6]: Классический игровой сервер с огромным онлайном 900+ игроков!"></a></div>
+<div id="ddmxgb">
+<table id="menu1" class="ddmx" cellspacing="0" cellpadding="0">
+	<tbody><tr>
+	<td><a class="item1" href="items" id="menu1-0">Предметы</a>
+		<div class="section" id="menu1-0-section" style="top: 193px; left: 0px;">
+			<a class="item2" href="search_item" id="menu1-0-0">Поиск</a>
+			<a class="item2 arrow" href="key/3" id="menu1-0-1">Оружие</a>
+				<div class="section" id="menu1-0-1-section" style="top: 25px; left: 125px;">
+					<a href="itype/1" class="item2 arrow" id="menu1-0-1-0">Мечи</a>
+						<div class="section" id="menu1-0-1-0-section" style="top: 0px; left: 109px;">
+							<a href="isubtype/2" class="item2" id="menu1-0-1-0-0">Простой клинок</a>
+							<a href="isubtype/18" class="item2" id="menu1-0-1-0-1">Простой меч</a>
+							<a href="isubtype/35" class="item2" id="menu1-0-1-0-2">Парные мечи</a>
+							<a href="isubtype/46" class="item2" id="menu1-0-1-0-3">Парные клинки</a>
+						</div>
+					<a href="itype/5" class="item2 arrow" id="menu1-0-1-1">Копья</a>
+						<div class="section" id="menu1-0-1-1-section" style="top: 22px; left: 109px;">
+							<a href="isubtype/56" class="item2" id="menu1-0-1-1-0">Копье</a>
+							<a href="isubtype/66" class="item2" id="menu1-0-1-1-1">Алебарда</a>
+							<a href="isubtype/76" class="item2" id="menu1-0-1-1-2">Посох</a>
+							<a href="isubtype/86" class="item2" id="menu1-0-1-1-3">Дубина</a>
+						</div>
+					<a href="itype/9" class="item2 arrow" id="menu1-0-1-2">Топоры</a>
+						<div class="section" id="menu1-0-1-2-section" style="top: 44px; left: 109px;">
+							<a href="isubtype/10" class="item2" id="menu1-0-1-2-0">Булава</a>
+							<a href="isubtype/98" class="item2" id="menu1-0-1-2-1">Длинная секира</a>
+							<a href="isubtype/99" class="item2" id="menu1-0-1-2-2">Парные секиры</a>
+							<a href="isubtype/118" class="item2" id="menu1-0-1-2-3">Парные булавы</a>
+						</div>
+					<a href="itype/13" class="item2 arrow" id="menu1-0-1-3">Дальнобойное</a>
+						<div class="section" id="menu1-0-1-3-section" style="top: 66px; left: 109px;">
+							<a href="isubtype/96" class="item2" id="menu1-0-1-3-0">Лук</a>
+							<a href="isubtype/209" class="item2" id="menu1-0-1-3-1">Арбалет</a>
+							<a href="isubtype/210" class="item2" id="menu1-0-1-3-2">Праща</a>
+						</div>
+					<a href="itype/182" class="item2 arrow" id="menu1-0-1-4">Кастеты</a>
+						<div class="section" id="menu1-0-1-4-section" style="top: 88px; left: 109px;">
+							<a href="isubtype/183" class="item2" id="menu1-0-1-4-0">Железные кастеты</a>
+							<a href="isubtype/184" class="item2" id="menu1-0-1-4-1">Кастеты с лезвиями</a>
+							<a href="isubtype/22387" class="item2" id="menu1-0-1-4-2">Срок годности</a>
+						</div>
+					<a href="itype/292" class="item2 arrow" id="menu1-0-1-5">Жезлы</a>
+						<div class="section" id="menu1-0-1-5-section" style="top: 110px; left: 109px;">
+							<a href="isubtype/336" class="item2" id="menu1-0-1-5-0">Магический меч</a>
+							<a href="isubtype/338" class="item2" id="menu1-0-1-5-1">Магический жезл</a>
+							<a href="isubtype/339" class="item2" id="menu1-0-1-5-2">Чакрам</a>
+							<a href="isubtype/340" class="item2" id="menu1-0-1-5-3">Посох</a>
+						</div>
+					<a href="itype/23749" class="item2 arrow" id="menu1-0-1-6">Кинжалы</a>
+						<div class="section" id="menu1-0-1-6-section" style="top: 132px; left: 109px;">
+							<a href="isubtype/25334" class="item2" id="menu1-0-1-6-0">Особое испытание</a>
+							<a href="isubtype/25719" class="item2" id="menu1-0-1-6-1">Кинжалы</a>
+						</div>
+					<a href="itype/25333" class="item2 arrow" id="menu1-0-1-7">Сферы</a>
+						<div class="section" id="menu1-0-1-7-section" style="top: 154px; left: 109px;">
+							<a href="isubtype/25335" class="item2" id="menu1-0-1-7-0">Особое испытание</a>
+							<a href="isubtype/25720" class="item2" id="menu1-0-1-7-1">Магическая сфера</a>
+						</div>
+					<a href="itype/44878" class="item2 arrow" id="menu1-0-1-8">Сабля</a>
+						<div class="section" id="menu1-0-1-8-section" style="top: 176px; left: 109px;">
+							<a href="isubtype/44880" class="item2" id="menu1-0-1-8-0">Сабля</a>
+						</div>
+					<a href="itype/44879" class="item2 arrow" id="menu1-0-1-9">Коса</a>
+						<div class="section" id="menu1-0-1-9-section" style="top: 198px; left: 109px;">
+							<a href="isubtype/44881" class="item2" id="menu1-0-1-9-0">Коса</a>
+						</div>
+						</div>
+			<a class="item2 arrow" href="key/6" id="menu1-0-2">Одежда</a>
+				<div class="section" id="menu1-0-2-section" style="top: 47px; left: 125px;">
+					<a href="itype/125" class="item2 arrow" id="menu1-0-2-0">Корпус</a>
+						<div class="section" id="menu1-0-2-0-section" style="top: 0px; left: 73px;">
+							<a href="isubtype/127" class="item2" id="menu1-0-2-0-0">Тяжелый нагрудник</a>
+							<a href="isubtype/140" class="item2" id="menu1-0-2-0-1">Легкий нагрудник</a>
+							<a href="isubtype/153" class="item2" id="menu1-0-2-0-2">Мантия</a>
+						</div>
+					<a href="itype/150" class="item2 arrow" id="menu1-0-2-1">Штаны</a>
+						<div class="section" id="menu1-0-2-1-section" style="top: 22px; left: 73px;">
+							<a href="isubtype/163" class="item2" id="menu1-0-2-1-0">Тяжелые поножи</a>
+							<a href="isubtype/188" class="item2" id="menu1-0-2-1-1">Легкие поножи</a>
+							<a href="isubtype/202" class="item2" id="menu1-0-2-1-2">Магические поножи</a>
+						</div>
+					<a href="itype/216" class="item2 arrow" id="menu1-0-2-2">Обувь</a>
+						<div class="section" id="menu1-0-2-2-section" style="top: 44px; left: 73px;">
+							<a href="isubtype/217" class="item2" id="menu1-0-2-2-0">Тяжелые ботинки</a>
+							<a href="isubtype/218" class="item2" id="menu1-0-2-2-1">Легкие сапоги</a>
+							<a href="isubtype/219" class="item2" id="menu1-0-2-2-2">Магические сапоги</a>
+						</div>
+					<a href="itype/316" class="item2 arrow" id="menu1-0-2-3">Голова</a>
+						<div class="section" id="menu1-0-2-3-section" style="top: 66px; left: 73px;">
+							<a href="isubtype/317" class="item2" id="menu1-0-2-3-0">Капюшон</a>
+							<a href="isubtype/318" class="item2" id="menu1-0-2-3-1">Тяжелый шлем</a>
+						</div>
+					<a href="itype/346" class="item2 arrow" id="menu1-0-2-4">Наручи</a>
+						<div class="section" id="menu1-0-2-4-section" style="top: 88px; left: 73px;">
+							<a href="isubtype/347" class="item2" id="menu1-0-2-4-0">Тяжелые наручи</a>
+							<a href="isubtype/356" class="item2" id="menu1-0-2-4-1">Магические наручи</a>
+							<a href="isubtype/2875" class="item2" id="menu1-0-2-4-2">Легкие наручи</a>
+						</div>
+					<a href="itype/369" class="item2 arrow" id="menu1-0-2-5">Накидка</a>
+						<div class="section" id="menu1-0-2-5-section" style="top: 110px; left: 73px;">
+							<a href="isubtype/370" class="item2" id="menu1-0-2-5-0">Накидка</a>
+						</div>
+						</div>
+			<a class="item2 arrow" href="key/9" id="menu1-0-3">Бижутерия</a>
+				<div class="section" id="menu1-0-3-section" style="top: 69px; left: 125px;">
+					<a href="itype/171" class="item2 arrow" id="menu1-0-3-0">Ожерелье</a>
+						<div class="section" id="menu1-0-3-0-section" style="top: 0px; left: 84px;">
+							<a href="isubtype/172" class="item2" id="menu1-0-3-0-0">Пестрое ожерелье</a>
+							<a href="isubtype/241" class="item2" id="menu1-0-3-0-1">Ожерелье падающего света</a>
+							<a href="isubtype/243" class="item2" id="menu1-0-3-0-2">Красивое ожерелье</a>
+						</div>
+					<a href="itype/234" class="item2 arrow" id="menu1-0-3-1">Пояс</a>
+						<div class="section" id="menu1-0-3-1-section" style="top: 22px; left: 84px;">
+							<a href="isubtype/235" class="item2" id="menu1-0-3-1-0">Ремень</a>
+							<a href="isubtype/244" class="item2" id="menu1-0-3-1-1">Ароматная сумка</a>
+							<a href="isubtype/245" class="item2" id="menu1-0-3-1-2">Перевязь</a>
+						</div>
+					<a href="itype/247" class="item2 arrow" id="menu1-0-3-2">Кольцо</a>
+						<div class="section" id="menu1-0-3-2-section" style="top: 44px; left: 84px;">
+							<a href="isubtype/248" class="item2" id="menu1-0-3-2-0">Металлическое кольцо</a>
+							<a href="isubtype/250" class="item2" id="menu1-0-3-2-1">Драгоценное кольцо</a>
+						</div>
+						</div>
+			<a class="item2 arrow" href="key/12" id="menu1-0-4">Зелья</a>
+				<div class="section" id="menu1-0-4-section" style="top: 91px; left: 125px;">
+					<a href="itype/1794" class="item2 arrow" id="menu1-0-4-0">Восстановление НР</a>
+						<div class="section" id="menu1-0-4-0-section" style="top: 0px; left: 168px;">
+							<a href="isubtype/1795" class="item2" id="menu1-0-4-0-0">Целебное зелье</a>
+							<a href="isubtype/6514" class="item2" id="menu1-0-4-0-1">Восстанавливающий порошок</a>
+							<a href="isubtype/6515" class="item2" id="menu1-0-4-0-2">Небесный порошок</a>
+							<a href="isubtype/9824" class="item2" id="menu1-0-4-0-3">Награда за доставку</a>
+							<a href="isubtype/19232" class="item2" id="menu1-0-4-0-4">Мероприятия 2008 года</a>
+							<a href="isubtype/29462" class="item2" id="menu1-0-4-0-5">Задание Оружейного зала ''Прика</a>
+							<a href="isubtype/35344" class="item2" id="menu1-0-4-0-6">VIP-карта</a>
+						</div>
+					<a href="itype/1802" class="item2 arrow" id="menu1-0-4-1">Восстановление МР</a>
+						<div class="section" id="menu1-0-4-1-section" style="top: 22px; left: 168px;">
+							<a href="isubtype/1803" class="item2" id="menu1-0-4-1-0">Духовное зелье</a>
+							<a href="isubtype/6526" class="item2" id="menu1-0-4-1-1">Живая вода</a>
+							<a href="isubtype/6527" class="item2" id="menu1-0-4-1-2">Таблетка орлиного дерева</a>
+							<a href="isubtype/9826" class="item2" id="menu1-0-4-1-3">Награда за доставку</a>
+							<a href="isubtype/29463" class="item2" id="menu1-0-4-1-4">Задание Оружейного зала ''Прика</a>
+							<a href="isubtype/35348" class="item2" id="menu1-0-4-1-5">VIP-карта</a>
+						</div>
+					<a href="itype/1810" class="item2 arrow" id="menu1-0-4-2">Восстановление НР и МР</a>
+						<div class="section" id="menu1-0-4-2-section" style="top: 44px; left: 168px;">
+							<a href="isubtype/1811" class="item2" id="menu1-0-4-2-0">Девять солнц</a>
+							<a href="isubtype/6538" class="item2" id="menu1-0-4-2-1">Порошок девяти драконов</a>
+							<a href="isubtype/6539" class="item2" id="menu1-0-4-2-2">Серая амбра</a>
+							<a href="isubtype/9828" class="item2" id="menu1-0-4-2-3">Награда за доставку</a>
+							<a href="isubtype/9965" class="item2" id="menu1-0-4-2-4">Лекарство для поддержания сил</a>
+						</div>
+					<a href="itype/1815" class="item2 arrow" id="menu1-0-4-3">Антидоты</a>
+						<div class="section" id="menu1-0-4-3-section" style="top: 66px; left: 168px;">
+							<a href="isubtype/1816" class="item2" id="menu1-0-4-3-0">Противоядие</a>
+						</div>
+					<a href="itype/2038" class="item2 arrow" id="menu1-0-4-4">Мгновенные антидоты</a>
+						<div class="section" id="menu1-0-4-4-section" style="top: 88px; left: 168px;">
+							<a href="isubtype/2039" class="item2" id="menu1-0-4-4-0">Противоядие</a>
+						</div>
+						</div>
+			<a class="item2 arrow" href="key/15" id="menu1-0-5">Ингридиенты</a>
+				<div class="section" id="menu1-0-5-section" style="top: 113px; left: 125px;">
+					<a class="item2" href="itype/12981" id="menu1-0-5-0">Формы</a>
+					<a class="item2" href="itype/397" id="menu1-0-5-1">Оружие</a>
+					<a class="item2" href="itype/617" id="menu1-0-5-2">Одежда</a>
+					<a class="item2" href="itype/716" id="menu1-0-5-3">Бижутерия</a>
+					<a class="item2" href="itype/407" id="menu1-0-5-4">Зелья</a>
+					<a class="item2" href="itype/409" id="menu1-0-5-5">Знаки</a>
+					<a class="item2" href="itype/761" id="menu1-0-5-6">Магические камни</a>
+					<a class="item2" href="itype/786" id="menu1-0-5-7">Обычные ингридиенты</a>
+					<a class="item2" href="itype/4092" id="menu1-0-5-8">Летательные средства</a>
+					<a class="item2" href="itype/6750" id="menu1-0-5-9">Сырье</a>
+						</div>
+			<a class="item2 arrow" href="shop" id="menu1-0-6">Игровой магазин</a>
+				<div class="section" id="menu1-0-6-section" style="top: 135px; left: 125px;">
+					<a href="shop/1" class="item2 arrow" id="menu1-0-6-0">Разное</a>
+						<div class="section" id="menu1-0-6-0-section" style="top: 0px; left: 83px;">
+							<a href="shop/11" class="item2" id="menu1-0-6-0-0">Подарки</a>
+							<a href="shop/12" class="item2" id="menu1-0-6-0-1">Питомцы</a>
+							<a href="shop/13" class="item2" id="menu1-0-6-0-2">Краски</a>
+							<a href="shop/14" class="item2" id="menu1-0-6-0-3">Заточка</a>
+							<a href="shop/15" class="item2" id="menu1-0-6-0-4">Книги</a>
+							<a href="shop/16" class="item2" id="menu1-0-6-0-5">Свадьба</a>
+							<a href="shop/17" class="item2" id="menu1-0-6-0-6">Оружие</a>
+							<a href="shop/18" class="item2" id="menu1-0-6-0-7">Дом</a>
+						</div>
+					<a href="shop/2" class="item2 arrow" id="menu1-0-6-1">Стиль</a>
+						<div class="section" id="menu1-0-6-1-section" style="top: 22px; left: 83px;">
+							<a href="shop/21" class="item2" id="menu1-0-6-1-0">Пиджаки</a>
+							<a href="shop/22" class="item2" id="menu1-0-6-1-1">Брюки</a>
+							<a href="shop/23" class="item2" id="menu1-0-6-1-2">Ботинки</a>
+							<a href="shop/24" class="item2" id="menu1-0-6-1-3">Блузки</a>
+							<a href="shop/25" class="item2" id="menu1-0-6-1-4">Перчатки</a>
+							<a href="shop/26" class="item2" id="menu1-0-6-1-5">Юбки</a>
+							<a href="shop/27" class="item2" id="menu1-0-6-1-6">Туфли</a>
+							<a href="shop/28" class="item2" id="menu1-0-6-1-7">Прически</a>
+						</div>
+					<a href="shop/3" class="item2 arrow" id="menu1-0-6-2">VIP</a>
+						<div class="section" id="menu1-0-6-2-section" style="top: 44px; left: 83px;">
+							<a href="shop/31" class="item2" id="menu1-0-6-2-0">VIP1</a>
+							<a href="shop/32" class="item2" id="menu1-0-6-2-1">VIP2</a>
+							<a href="shop/33" class="item2" id="menu1-0-6-2-2">VIP3</a>
+							<a href="shop/34" class="item2" id="menu1-0-6-2-3">VIP4</a>
+							<a href="shop/35" class="item2" id="menu1-0-6-2-4">VIP5</a>
+							<a href="shop/36" class="item2" id="menu1-0-6-2-5">VIP6</a>
+						</div>
+					<a href="shop/4" class="item2 arrow" id="menu1-0-6-3">Полет</a>
+						<div class="section" id="menu1-0-6-3-section" style="top: 66px; left: 83px;">
+							<a href="shop/41" class="item2" id="menu1-0-6-3-0">Люди</a>
+							<a href="shop/42" class="item2" id="menu1-0-6-3-1">Зооморф</a>
+							<a href="shop/43" class="item2" id="menu1-0-6-3-2">Сиды</a>
+							<a href="shop/44" class="item2" id="menu1-0-6-3-3">Амфибии</a>
+							<a href="shop/45" class="item2" id="menu1-0-6-3-4">Древние</a>
+							<a href="shop/46" class="item2" id="menu1-0-6-3-5">Тени</a>
+							<a href="shop/47" class="item2" id="menu1-0-6-3-6">Ускор.</a>
+							<a href="shop/48" class="item2" id="menu1-0-6-3-7">Редкие</a>
+						</div>
+					<a href="shop/5" class="item2 arrow" id="menu1-0-6-4">Питомцы</a>
+						<div class="section" id="menu1-0-6-4-section" style="top: 88px; left: 83px;">
+							<a href="shop/51" class="item2" id="menu1-0-6-4-0">Ездовые</a>
+							<a href="shop/52" class="item2" id="menu1-0-6-4-1">Ускор.</a>
+						</div>
+					<a href="shop/6" class="item2 arrow" id="menu1-0-6-5">VIP-очки</a>					<a href="shop/7" class="item2 arrow" id="menu1-0-6-6">Персонаж</a>
+						<div class="section" id="menu1-0-6-6-section" style="top: 132px; left: 83px;">
+							<a href="shop/71" class="item2" id="menu1-0-6-6-0">Помощь</a>
+							<a href="shop/72" class="item2" id="menu1-0-6-6-1">Усоверш.</a>
+							<a href="shop/73" class="item2" id="menu1-0-6-6-2">Телепорт</a>
+							<a href="shop/74" class="item2" id="menu1-0-6-6-3">Талоны</a>
+							<a href="shop/75" class="item2" id="menu1-0-6-6-4">Рупоры</a>
+							<a href="shop/76" class="item2" id="menu1-0-6-6-5">Палатки</a>
+							<a href="shop/77" class="item2" id="menu1-0-6-6-6">Полезное</a>
+						</div>
+					<a href="shop/8" class="item2 arrow" id="menu1-0-6-7">Другое</a>
+						<div class="section" id="menu1-0-6-7-section" style="top: 154px; left: 83px;">
+							<a href="shop/84" class="item2" id="menu1-0-6-7-0">Ресурсы</a>
+							<a href="shop/85" class="item2" id="menu1-0-6-7-1">Салют</a>
+							<a href="shop/81" class="item2" id="menu1-0-6-7-2">Свитки</a>
+							<a href="shop/83" class="item2" id="menu1-0-6-7-3">Сырье</a>
+							<a href="shop/82" class="item2" id="menu1-0-6-7-4">Цветы</a>
+						</div>
+						</div>
+			<a class="item2" href="key/17" id="menu1-0-7">Знаки Атаки</a>
+			<a class="item2" href="key/19" id="menu1-0-8">Знаки Защиты</a>
+			<a class="item2" href="key/31" id="menu1-0-9">Боеприпасы</a>
+			<a class="item2" href="key/35" id="menu1-0-10">Магические камни</a>
+			<a class="item2" href="key/82" id="menu1-0-11">Модные вещи</a>
+			<a class="item2" href="itype/8077" id="menu1-0-12">Поиск Драконов</a>
+			<a class="item2" href="key/120" id="menu1-0-13">Джины</a>
+			<a class="item2" href="key/134" id="menu1-0-14">Рунные камни</a>
+			<a class="item2" href="key/183" id="menu1-0-15">War Avatar Cards</a>
+				</div>
+			</td>
+	<td><a class="item1" href="mob" id="menu1-1">Монстры</a>
+		<div class="section" id="menu1-1-section" style="top: 193px; left: 100px;">
+			<a class="item2" href="search_mob" id="menu1-1-0">Поиск</a>
+			<a class="item2" href="mtype" id="menu1-1-1">Типы мобов</a>
+			<a class="item2" href="lvl/0-9" id="menu1-1-2">Уровень 0-9</a>
+			<a class="item2" href="lvl/10-19" id="menu1-1-3">Уровень 10-19</a>
+			<a class="item2" href="lvl/20-29" id="menu1-1-4">Уровень 20-29</a>
+			<a class="item2" href="lvl/30-39" id="menu1-1-5">Уровень 30-39</a>
+			<a class="item2" href="lvl/40-49" id="menu1-1-6">Уровень 40-49</a>
+			<a class="item2" href="lvl/50-59" id="menu1-1-7">Уровень 50-59</a>
+			<a class="item2" href="lvl/60-69" id="menu1-1-8">Уровень 60-69</a>
+			<a class="item2" href="lvl/70-79" id="menu1-1-9">Уровень 70-79</a>
+			<a class="item2" href="lvl/80-89" id="menu1-1-10">Уровень 80-89</a>
+			<a class="item2" href="lvl/90-99" id="menu1-1-11">Уровень 90-99</a>
+			<a class="item2" href="lvl/100-120" id="menu1-1-12">Уровень 100-120</a>
+			<a class="item2" href="lvl/150" id="menu1-1-13">Уровень 150</a>
+				</div>
+			</td>
+	<td><a class="item1" href="npc" id="menu1-2">NPC</a>
+		<div class="section" id="menu1-2-section" style="top: 193px; left: 200px;">
+			<a class="item2" href="search_npc" id="menu1-2-0">&nbsp;Поиск NPC&nbsp;&nbsp;</a>
+				</div>
+			</td>
+	<td><a class="item1" href="mine" id="menu1-3">Ресурсы</a>
+		<div class="section" id="menu1-3-section" style="top: 193px; left: 300px;">
+			<a class="item2" href="mine_type/2861" id="menu1-3-0">Древесина</a>
+			<a class="item2" href="mine_type/2862" id="menu1-3-1">Металл</a>
+			<a class="item2" href="mine_type/2863" id="menu1-3-2">Камень</a>
+			<a class="item2" href="mine_type/2864" id="menu1-3-3">Источники энергии</a>
+			<a class="item2" href="mine_type/2865" id="menu1-3-4">Травы</a>
+			<a class="item2" href="mine_type/3404" id="menu1-3-5">Особая шахта</a>
+			<a class="item2" href="mine_type/4306" id="menu1-3-6">Шкатулка с сокровищами</a>
+			<a class="item2" href="mine_type/24627" id="menu1-3-7">Город боевых песен</a>
+			<a class="item2" href="mine_others" id="menu1-3-8">Прочие типы</a>
+				</div>
+			</td>
+	<td><a class="item1" href="quest" id="menu1-4">Квесты</a>
+		<div class="section" id="menu1-4-section" style="top: 193px; left: 400px;">
+			<a class="item2" href="search_quest" id="menu1-4-0">Поиск</a>
+			<a class="item2" href="qlvl/0-9" id="menu1-4-1">Уровень 0-9</a>
+			<a class="item2" href="qlvl/10-19" id="menu1-4-2">Уровень 10-19</a>
+			<a class="item2" href="qlvl/20-29" id="menu1-4-3">Уровень 20-29</a>
+			<a class="item2" href="qlvl/30-39" id="menu1-4-4">Уровень 30-39</a>
+			<a class="item2" href="qlvl/40-49" id="menu1-4-5">Уровень 40-49</a>
+			<a class="item2" href="qlvl/50-59" id="menu1-4-6">Уровень 50-59</a>
+			<a class="item2" href="qlvl/60-69" id="menu1-4-7">Уровень 60-69</a>
+			<a class="item2" href="qlvl/70-79" id="menu1-4-8">Уровень 70-79</a>
+			<a class="item2" href="qlvl/80-89" id="menu1-4-9">Уровень 80-89</a>
+			<a class="item2" href="qlvl/90-99" id="menu1-4-10">Уровень 90-99</a>
+			<a class="item2" href="qlvl/100-119" id="menu1-4-11">Уровень 100-119</a>
+			<a class="item2" href="qlvl/120-150" id="menu1-4-12">Уровень 120-150</a>
+			<a class="item2" href="library" id="menu1-4-13">Библиотечные квесты</a>
+				</div>
+			</td>
+	<td><a class="item1" href="tools" id="menu1-5">Другое</a>
+		<div class="section" id="menu1-5-section" style="top: 193px; left: 500px; visibility: hidden; z-index: -1;">
+			<a class="item2" href="drop" id="menu1-5-2">Выпадение предметов</a>
+			<a class="item2" href="change_log" id="menu1-5-3">ChangeLog</a>
+			<a class="item2" href="faction_base" id="menu1-5-4">Базы гильдий</a>
+			<a class="item2" href="engravement" id="menu1-5-5">Шлифовка</a>
+			<a class="item2" href="titles" id="menu1-5-6">Титулы</a>
+				</div>
+			</td>
+	</tr>
+</tbody></table>
+</div><script type="text/javascript">var ddmx = new DropDownMenuX('menu1');ddmx.init();</script>
+<div id='content'>
+
+<form action="search_npc" method="POST">
+<div class="tableHeader">Поиск</div>
+<table width="800" align="center" border="0" class="table_input">
+    <tr>
+    	<th>Название:</th>
+    	<td><input type="text" name="name" style="width:150px;" value=""></td>
+    	<th>X:</th>
+    	<td>
+   			<input type="text" name="x" value="">
+   			<select onchange="ChangeLayer(this.value,'x');">
+   				<option value="0"></option>
+    			<option value="1" >&lt;-&gt;</option>
+	   		</select>
+    		<input type="text" name="x_max" id="x_max" value="" class="hiddenvis">
+    	</td>
+    </tr>
+    <tr>
+    	<th></th>
+    	<td>
+    	</td>
+    	<th>Y:</th>
+    	<td>
+   			<input type="text" name="y" value="">
+   			<select onchange="ChangeLayer(this.value,'y');">
+   				<option value="0"></option>
+    			<option value="1" >&lt;-&gt;</option>
+	   		</select>
+    		<input type="text" name="y_max" id="y_max" value="" class="hiddenvis">
+    	</td>
+    </tr>
+	<tr>
+		<td colspan="4" style="text-align:center"><input type="submit" value="Поиск" class="clear"></td>
+	</tr>
+</table>
+</form></div>
+<div class="top_ads">
+<a target="_blank" title="ThePW [1.3.6]: Классический игровой сервер с огромным онлайном 900+ игроков!" href="http://thepw.ru/kak-nachat-igrat?utm_source=pwdatabase_net&utm_medium=banner&utm_campaign=pwdatabase_net_banner_ru_728_90_bottom"><img width="728" height="90" src="http://thepw.ru/images/banners/v4/728x90_900_RUS.gif" alt="ThePW [1.3.6]: Классический игровой сервер с огромным онлайном 900+ игроков!"></a></div>
+<div id="footer"><span>PWDatabase Version 0.7.5.<br />Создано на основе клиента PW Генезис: Version 1.4.4 Build 2305. Perfect World developed by Beijing Perfect World Co. Ltd.</span>
+<div class="footer_logo"><a title="База знаний Perfect World" href="/"><img src="/images/logo2.png" width="300" height="42" alt="База знаний Perfect World"></a></div>
+<link rel="stylesheet" type="text/css" media="all" href="/css/overrides.css?13" />
+<script type="text/javascript" src="/js/counters.js?13"></script>
+	</div>
+<div class="smallMenu" id="xy"><div class="inner" id="xyt"></div></div>
+
+
+  </body>
+</html>
