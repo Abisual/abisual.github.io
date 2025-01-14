@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
@@ -58,12 +58,30 @@ const questions = [
   }
 ];
 
+const preloadImages = (images: string[]) => {
+  console.log("Starting image preload...");
+  images.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+    console.log(`Preloading image: ${src}`);
+  });
+};
+
 const Index = () => {
   const [isVerified, setIsVerified] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showCorrectImage, setShowCorrectImage] = useState(false);
   const { toast } = useToast();
+
+  useEffect(() => {
+    // Собираем все уникальные URL изображений из вопросов
+    const imagesToPreload = questions
+      .map(q => q.correctImage)
+      .filter((url): url is string => !!url);
+    
+    preloadImages(imagesToPreload);
+  }, []); // Запускаем только при первом рендере
 
   const handleAnswer = (answer: string) => {
     const currentQuestion = questions[currentQuestionIndex];
