@@ -5,7 +5,7 @@ import { componentTagger } from "lovable-tagger";
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
-  base: "/abisual.github.io/", // Добавляем базовый путь, который соответствует названию репозитория
+  base: "/", // Меняем на корневой путь, так как это специальный репозиторий username.github.io
   server: {
     host: "::",
     port: 8080,
