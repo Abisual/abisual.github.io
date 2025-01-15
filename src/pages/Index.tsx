@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { motion } from "framer-motion";
+import { FakeCaptcha } from "@/components/FakeCaptcha";
+import { WrongAnswerDialog } from "@/components/WrongAnswerDialog";
 
 const questions = [
   {
@@ -58,13 +60,22 @@ const questions = [
   }
 ];
 
-const preloadImages = (images: string[]) => {
-  console.log("Starting image preload...");
-  images.forEach((src) => {
-    const img = new Image();
-    img.src = src;
-    console.log(`Preloading image: ${src}`);
-  });
+const preloadImages = (imageUrls: string[]) => {
+  console.log('Starting image preload for URLs:', imageUrls);
+  return Promise.all(imageUrls.map(url => {
+    return new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => {
+        console.log('Preloaded image:', url);
+        resolve(url);
+      };
+      img.onerror = (err) => {
+        console.error('Failed to preload image:', url, err);
+        reject(err);
+      };
+      img.src = url;
+    });
+  }));
 };
 
 const Index = () => {
@@ -72,16 +83,27 @@ const Index = () => {
   const [showQuestion, setShowQuestion] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [showCorrectImage, setShowCorrectImage] = useState(false);
+  const [showWrongAnswer, setShowWrongAnswer] = useState(false);
+  const [showCaptcha, setShowCaptcha] = useState(false);
+  const [captchaShown, setCaptchaShown] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
-    // Собираем все уникальные URL изображений из вопросов
-    const imagesToPreload = questions
-      .map(q => q.correctImage)
-      .filter((url): url is string => !!url);
+    // Collect all images to preload
+    const imagesToPreload = [
+      ...questions.map(q => q.correctImage).filter((url): url is string => !!url),
+      "/lovable-uploads/810d570e-3b6d-4430-b1c5-fe52be1167ae.png",
+      "/lovable-uploads/75fd2ac3-2b28-4702-89d4-67e9601659e4.png",
+      "/lovable-uploads/96f11916-23d5-4b61-b884-12e3d8d23b6c.png",
+      "/lovable-uploads/aab8729a-237b-4387-8f8d-f9ce7232a2ec.png"
+    ];
     
-    preloadImages(imagesToPreload);
-  }, []); // Запускаем только при первом рендере
+    preloadImages(imagesToPreload).then(() => {
+      console.log('All images preloaded successfully');
+    }).catch(err => {
+      console.error('Error preloading images:', err);
+    });
+  }, []);
 
   const handleAnswer = (answer: string) => {
     const currentQuestion = questions[currentQuestionIndex];
@@ -98,8 +120,24 @@ const Index = () => {
           setShowCorrectImage(false);
           if (currentQuestionIndex < questions.length - 1) {
             setCurrentQuestionIndex(prev => prev + 1);
+            
+            // Show CAPTCHA if it hasn't been shown yet and we're at least halfway through
+            // or with a 20% chance after each correct answer
+            if (!captchaShown && (
+              currentQuestionIndex >= Math.floor(questions.length / 2) || 
+              Math.random() < 0.2
+            )) {
+              setShowCaptcha(true);
+              setCaptchaShown(true);
+            }
           } else {
-            setIsVerified(true);
+            // If we're at the last question and CAPTCHA hasn't been shown yet, show it
+            if (!captchaShown) {
+              setShowCaptcha(true);
+              setCaptchaShown(true);
+            } else {
+              setIsVerified(true);
+            }
           }
         }, 2000);
         toast({
@@ -107,11 +145,16 @@ const Index = () => {
           description: "Переходим к следующему вопросу",
         });
       } else if (currentQuestionIndex === questions.length - 1) {
-        setIsVerified(true);
-        toast({
-          title: "Поздравляем!",
-          description: "Вы действительно Влад!",
-        });
+        if (!captchaShown) {
+          setShowCaptcha(true);
+          setCaptchaShown(true);
+        } else {
+          setIsVerified(true);
+          toast({
+            title: "Поздравляем!",
+            description: "Вы действительно Влад!",
+          });
+        }
       } else {
         setCurrentQuestionIndex(prev => prev + 1);
         toast({
@@ -126,16 +169,29 @@ const Index = () => {
           title: "Упс!",
           description: currentQuestion.specialMessage.message,
         });
-      } else {
-        toast({
-          variant: "destructive",
-          title: "Упс!",
-          description: "Похоже, вы не Влад. Попробуйте снова!",
-        });
       }
-      setShowQuestion(false);
-      setCurrentQuestionIndex(0);
+      setShowWrongAnswer(true);
     }
+  };
+
+  const handleRetry = () => {
+    setShowWrongAnswer(false);
+    setShowQuestion(false);
+    setCurrentQuestionIndex(0);
+    setCaptchaShown(false); // Reset captchaShown when retrying
+  };
+
+  const handleCaptchaSuccess = () => {
+    setShowCaptcha(false);
+    toast({
+      title: "Отлично!",
+      description: "Вы прошли проверку",
+    });
+  };
+
+  const handleCaptchaError = () => {
+    setShowCaptcha(false);
+    setShowWrongAnswer(true);
   };
 
   const currentQuestion = questions[currentQuestionIndex];
@@ -224,6 +280,17 @@ const Index = () => {
           </motion.div>
         )}
       </div>
+      <FakeCaptcha 
+        open={showCaptcha} 
+        onSuccess={handleCaptchaSuccess}
+        onError={handleCaptchaError}
+        onClose={() => setShowCaptcha(false)} 
+      />
+      <WrongAnswerDialog 
+        open={showWrongAnswer}
+        onClose={() => setShowWrongAnswer(false)}
+        onRetry={handleRetry}
+      />
     </div>
   );
 };
