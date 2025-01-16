@@ -60,10 +60,10 @@ const questions = [
   },
   {
     question: "Что случилось со столом?",
-    image: "/lovable-uploads/bbe0681d-4b38-4419-8dd9-81f06eb5b9cf.png",
-    answers: ["Дорого", "Не дорого", "Не играю в пабг", "Не использую читы"],
-    correctAnswer: "Не использую читы",
-    correctImage: null
+    answers: ["Мышка из руки выпала", "Укусил", "Сам сломался", "Не важно"],
+    correctAnswer: "Не важно",
+    showImageWithQuestion: true,
+    correctImage: "/lovable-uploads/44b702b7-6d27-4172-a14c-2c886d7d3a61.png"
   }
 ];
 
@@ -85,7 +85,7 @@ const preloadImages = (imageUrls: string[]) => {
   }));
 };
 
-const Index = () => {
+const Quiz = () => {
   const [isVerified, setIsVerified] = useState(false);
   const [showQuestion, setShowQuestion] = useState(false);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
@@ -120,7 +120,7 @@ const Index = () => {
     }
     
     if (answer === currentQuestion.correctAnswer) {
-      if (currentQuestion.correctImage) {
+      if (currentQuestion.correctImage && !currentQuestion.showImageWithQuestion) {
         setShowCorrectImage(true);
         setTimeout(() => {
           setShowCorrectImage(false);
@@ -234,7 +234,7 @@ const Index = () => {
                 animate={{ opacity: 1, x: 0 }}
                 className="space-y-6"
               >
-                {showCorrectImage && currentQuestion ? (
+                {showCorrectImage && currentQuestion && !currentQuestion.showImageWithQuestion ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
@@ -251,12 +251,18 @@ const Index = () => {
                     <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
                       {currentQuestion.question}
                     </h2>
-                    {currentQuestion.image && (
-                      <img 
-                        src={currentQuestion.image} 
-                        alt="Question" 
-                        className="max-w-full h-auto rounded-lg mb-4"
-                      />
+                    {currentQuestion.showImageWithQuestion && currentQuestion.correctImage && (
+                      <motion.div
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="flex justify-center mb-6"
+                      >
+                        <img 
+                          src={currentQuestion.correctImage} 
+                          alt="Question Image" 
+                          className="max-w-full h-auto rounded-lg shadow-lg"
+                        />
+                      </motion.div>
                     )}
                     <div className="grid gap-4">
                       {currentQuestion.answers.map((answer) => (
@@ -305,4 +311,4 @@ const Index = () => {
   );
 };
 
-export default Index;
+export default Quiz;
