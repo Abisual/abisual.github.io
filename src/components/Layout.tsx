@@ -19,12 +19,12 @@ const Layout = () => {
                 Главная
               </Link>
               <Link
-                to="/roulette"
+                to="/games"
                 className={`text-sidebar-foreground hover:text-sidebar-primary transition-colors ${
-                  location.pathname === "/roulette" ? "font-bold" : ""
+                  location.pathname.startsWith("/games") ? "font-bold" : ""
                 }`}
               >
-                Рулетка
+                Игры
               </Link>
             </div>
           </div>

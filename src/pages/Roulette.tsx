@@ -3,6 +3,11 @@ import { motion, animate } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/hooks/use-toast";
+import { DepositDialog } from "@/components/DepositDialog";
+
+interface RouletteProp {
+  nickname: string;
+}
 
 type Player = {
   id: string;
@@ -12,9 +17,11 @@ type Player = {
   betType: string;
 };
 
-const INITIAL_BALANCE = 1000;
-const SPIN_DURATION = 15000;
-const SPIN_INTERVAL = 20000;
+declare global {
+  var globalBalance: number;
+}
+
+const SPIN_INTERVAL = 10000; // 10 секунд между спинами
 
 const multipliers = [
   { value: 2, weight: 50, color: "bg-white" },
@@ -23,9 +30,8 @@ const multipliers = [
   { value: 10, weight: 5, color: "bg-orange-500" }
 ];
 
-const Roulette = () => {
-  const [nickname, setNickname] = useState("");
-  const [isPlaying, setIsPlaying] = useState(false);
+const Roulette = ({ nickname }: RouletteProp) => {
+  const [isPlaying, setIsPlaying] = useState(true);
   const [players, setPlayers] = useState<Player[]>([]);
   const [currentBet, setCurrentBet] = useState("");
   const [selectedMultiplier, setSelectedMultiplier] = useState<number | null>(null);
@@ -33,30 +39,34 @@ const Roulette = () => {
   const [result, setResult] = useState<number | null>(null);
   const [nextSpinTime, setNextSpinTime] = useState(SPIN_INTERVAL);
   const [history, setHistory] = useState<Array<{ value: number; color: string }>>([]);
+  const [showDepositDialog, setShowDepositDialog] = useState(false);
+  const [balance, setBalance] = useState(0);
   const spinnerRef = useRef<HTMLDivElement>(null);
   const { toast } = useToast();
 
-  const startGame = () => {
-    if (!nickname.trim()) {
-      toast({
-        title: "Ошибка",
-        description: "Пожалуйста, введите никнейм",
-        variant: "destructive",
-      });
-      return;
-    }
+  useEffect(() => {
+    const updateBalance = () => {
+      setBalance(globalThis.globalBalance);
+    };
+    
+    updateBalance();
+    
+    const interval = setInterval(updateBalance, 1000);
+    
+    return () => clearInterval(interval);
+  }, []);
 
+  useEffect(() => {
     const newPlayer = {
       id: Math.random().toString(36).substr(2, 9),
       nickname,
-      balance: INITIAL_BALANCE,
+      balance: globalThis.globalBalance,
       bet: 0,
       betType: "",
     };
 
     setPlayers(prev => [...prev, newPlayer]);
-    setIsPlaying(true);
-  };
+  }, [nickname]);
 
   const placeBet = (multiplier: number) => {
     const betAmount = Number(currentBet);
@@ -151,14 +161,21 @@ const Roulette = () => {
       setPlayers(prev =>
         prev.map(p => {
           if (p.bet && p.betType === `x${resultMultiplier.value}`) {
+            const newBalance = p.balance + (p.bet * resultMultiplier.value);
+            globalThis.globalBalance = newBalance;
             return {
               ...p,
-              balance: p.balance + (p.bet * resultMultiplier.value),
+              balance: newBalance,
               bet: 0,
               betType: "",
             };
           }
-          return p.bet ? { ...p, balance: p.balance - p.bet, bet: 0, betType: "" } : p;
+          if (p.bet) {
+            const newBalance = p.balance - p.bet;
+            globalThis.globalBalance = newBalance;
+            return { ...p, balance: newBalance, bet: 0, betType: "" };
+          }
+          return p;
         })
       );
       
@@ -198,12 +215,12 @@ const Roulette = () => {
             <Input
               type="text"
               value={nickname}
-              onChange={(e) => setNickname(e.target.value)}
-              placeholder="Введите ваш никнейм"
+              readOnly
+              placeholder="Ваш никнейм"
               className="bg-gray-700 border-gray-600 text-white"
             />
             <Button
-              onClick={startGame}
+              onClick={() => setIsPlaying(true)}
               className="w-full bg-gradient-to-r from-purple-600 to-pink-600"
             >
               Начать игру
@@ -217,7 +234,22 @@ const Roulette = () => {
   return (
     <div className="max-w-6xl mx-auto bg-black/95 rounded-xl p-8 shadow-2xl text-white">
       <div className="text-center mb-8">
-        <h2 className="text-2xl font-bold mb-4">Лучше здесь и бесплатно, чем где-то еще</h2>
+        <div className="flex justify-between items-center mb-4">
+          <h2 className="text-2xl font-bold">Лучше здесь и бесплатно, чем где-то еще</h2>
+          <div className="flex items-center gap-4">
+            <div className="text-xl font-bold">
+              Баланс: {balance.toFixed(2)} ₽
+            </div>
+            <Button 
+              variant="outline"
+              onClick={() => setShowDepositDialog(true)}
+              className="bg-gray-800 text-white hover:bg-gray-700"
+            >
+              Пополнить баланс
+            </Button>
+          </div>
+        </div>
+        
         <div className="flex justify-between items-center mb-4">
           <div className="flex gap-2">
             {history.map((item, index) => (
@@ -312,6 +344,11 @@ const Roulette = () => {
       <p className="text-xs text-gray-500 mt-8 text-center italic">
         Да, числа не совпадают с тем что выпало на анимации. Нет времени исправлять, че ты мне сделаешь вообще? Пошёл нахуй.
       </p>
+
+      <DepositDialog 
+        open={showDepositDialog} 
+        onOpenChange={setShowDepositDialog}
+      />
     </div>
   );
 };
