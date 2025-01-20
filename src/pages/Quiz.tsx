@@ -1,11 +1,14 @@
-import { useState, useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
+import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { FakeCaptcha } from "@/components/FakeCaptcha";
 import { WrongAnswerDialog } from "@/components/WrongAnswerDialog";
+import QuizQuestion from "@/components/quiz/QuizQuestion";
+import CorrectAnswer from "@/components/quiz/CorrectAnswer";
+import QuizWelcome from "@/components/quiz/QuizWelcome";
+import QuizComplete from "@/components/quiz/QuizComplete";
+import { useQuiz, Question } from "@/hooks/useQuiz";
 
-const questions = [
+const questions: Question[] = [
   {
     question: "Куда надо ставить, чтобы сто процентов зашло?",
     answers: ["На красное", "На черное", "На ноль", "На хуй"],
@@ -64,6 +67,41 @@ const questions = [
     correctAnswer: "Не важно",
     showImageWithQuestion: true,
     correctImage: "/lovable-uploads/44b702b7-6d27-4172-a14c-2c886d7d3a61.png"
+  },
+  {
+    question: "Кем работает олди?",
+    answers: ["МВД", "ФСБ", "ГРУ", "ФСО"],
+    correctAnswer: "МВД",
+    specialMessage: {
+      answer: "МВД",
+      message: "Тебе знать не положено"
+    }
+  },
+  {
+    question: "Сколько Андрей намайнил на твоей видеокарте?",
+    answers: ["Дохуя", "Пидор машину себе купил", "И жене подарки", "Все варианты выше"],
+    correctAnswer: "Все варианты выше",
+    correctImage: "/lovable-uploads/53e52344-d2a1-4cda-8482-64117b0fa24a.png"
+  },
+  {
+    question: "Если бы вам предложили поработать официантом прямо сейчас, то через сколько дней вы скажете что ебали все в рот и хотите домой?",
+    answers: ["90 дней", "7 дней", "30 дней", "5 дней"],
+    correctAnswer: "7 дней",
+    correctImage: "/lovable-uploads/0ce9f369-9628-46e9-bbe3-568f6b4f188d.png"
+  },
+  {
+    question: "Дальше будет:",
+    answers: ["Опять 0", "Иксанет, можно ставить", "Единичка", "Надо еще подождать"],
+    correctAnswer: "Иксанет, можно ставить",
+    showImageWithQuestion: true,
+    correctImage: "/lovable-uploads/7b10d76e-e403-4552-9dd7-59e8e0a1ee77.png"
+  },
+  {
+    question: "Картинка со звуком:",
+    answers: ["БЛЯТЬ ОЛДИ", "СУКА", "Я ОПЯТЬ ВСЕ ПРОЕБАЛ", "Все варианты выше"],
+    correctAnswer: "Все варианты выше",
+    showImageWithQuestion: true,
+    correctImage: "/lovable-uploads/83adf1cc-6532-47ad-8039-514ac99b71a9.png"
   }
 ];
 
@@ -86,14 +124,21 @@ const preloadImages = (imageUrls: string[]) => {
 };
 
 const Quiz = () => {
-  const [isVerified, setIsVerified] = useState(false);
-  const [showQuestion, setShowQuestion] = useState(false);
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [showCorrectImage, setShowCorrectImage] = useState(false);
-  const [showWrongAnswer, setShowWrongAnswer] = useState(false);
-  const [showCaptcha, setShowCaptcha] = useState(false);
-  const [captchaShown, setCaptchaShown] = useState(false);
-  const { toast } = useToast();
+  const {
+    isVerified,
+    showQuestion,
+    showCorrectImage,
+    showWrongAnswer,
+    showCaptcha,
+    currentQuestion,
+    handleAnswer,
+    handleRetry,
+    handleCaptchaSuccess,
+    handleCaptchaError,
+    setShowQuestion,
+    setShowCaptcha,
+    setShowWrongAnswer
+  } = useQuiz(questions);
 
   useEffect(() => {
     const imagesToPreload = [
@@ -111,94 +156,6 @@ const Quiz = () => {
     });
   }, []);
 
-  const handleAnswer = (answer: string) => {
-    const currentQuestion = questions[currentQuestionIndex];
-    
-    if (!currentQuestion) {
-      console.error("Question not found for index:", currentQuestionIndex);
-      return;
-    }
-    
-    if (answer === currentQuestion.correctAnswer) {
-      if (currentQuestion.correctImage && !currentQuestion.showImageWithQuestion) {
-        setShowCorrectImage(true);
-        setTimeout(() => {
-          setShowCorrectImage(false);
-          if (currentQuestionIndex < questions.length - 1) {
-            setCurrentQuestionIndex(prev => prev + 1);
-            
-            if (!captchaShown && (
-              currentQuestionIndex >= Math.floor(questions.length / 2) || 
-              Math.random() < 0.2
-            )) {
-              setShowCaptcha(true);
-              setCaptchaShown(true);
-            }
-          } else {
-            if (!captchaShown) {
-              setShowCaptcha(true);
-              setCaptchaShown(true);
-            } else {
-              setIsVerified(true);
-            }
-          }
-        }, 2000);
-        toast({
-          title: "Правильно!",
-          description: "Переходим к следующему вопросу",
-        });
-      } else if (currentQuestionIndex === questions.length - 1) {
-        if (!captchaShown) {
-          setShowCaptcha(true);
-          setCaptchaShown(true);
-        } else {
-          setIsVerified(true);
-          toast({
-            title: "Поздравляем!",
-            description: "Вы действительно Влад!",
-          });
-        }
-      } else {
-        setCurrentQuestionIndex(prev => prev + 1);
-        toast({
-          title: "Правильно!",
-          description: "Переходим к следующему вопросу",
-        });
-      }
-    } else {
-      if (currentQuestion.specialMessage && answer === currentQuestion.specialMessage.answer) {
-        toast({
-          variant: "destructive",
-          title: "Упс!",
-          description: currentQuestion.specialMessage.message,
-        });
-      }
-      setShowWrongAnswer(true);
-    }
-  };
-
-  const handleRetry = () => {
-    setShowWrongAnswer(false);
-    setShowQuestion(false);
-    setCurrentQuestionIndex(0);
-    setCaptchaShown(false);
-  };
-
-  const handleCaptchaSuccess = () => {
-    setShowCaptcha(false);
-    toast({
-      title: "Отлично!",
-      description: "Вы прошли проверку",
-    });
-  };
-
-  const handleCaptchaError = () => {
-    setShowCaptcha(false);
-    setShowWrongAnswer(true);
-  };
-
-  const currentQuestion = questions[currentQuestionIndex];
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-500 to-pink-500">
       <div className="w-full max-w-3xl p-8">
@@ -210,105 +167,38 @@ const Quiz = () => {
             className="bg-white/90 backdrop-blur-sm rounded-xl p-8 shadow-2xl"
           >
             {!showQuestion ? (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="text-center space-y-6"
-              >
-                <h1 className="text-4xl font-bold text-gray-800 mb-4">
-                  С Днем Рождения, Влад! 🎉
-                </h1>
-                <p className="text-xl text-gray-600 mb-8">
-                  Чтобы получить подарок, докажите, что вы Влад
-                </p>
-                <Button
-                  onClick={() => setShowQuestion(true)}
-                  className="bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 text-white px-8 py-6 text-lg"
-                >
-                  Пройти верификацию
-                </Button>
-              </motion.div>
+              <QuizWelcome onStart={() => setShowQuestion(true)} />
             ) : (
               <motion.div
                 initial={{ opacity: 0, x: 20 }}
                 animate={{ opacity: 1, x: 0 }}
                 className="space-y-6"
               >
-                {showCorrectImage && currentQuestion && !currentQuestion.showImageWithQuestion ? (
+                {showCorrectImage && currentQuestion ? (
                   <motion.div
                     initial={{ opacity: 0, scale: 0.8 }}
                     animate={{ opacity: 1, scale: 1 }}
                     className="flex justify-center mb-6"
                   >
-                    <img 
-                      src={currentQuestion.correctImage} 
-                      alt="Correct Answer" 
-                      className="max-w-full h-auto rounded-lg shadow-lg"
+                    <CorrectAnswer 
+                      image={currentQuestion.correctImage}
+                      isOldiQuestion={currentQuestion.question === "Кем работает олди?"}
                     />
                   </motion.div>
                 ) : currentQuestion ? (
-                  <>
-                    <h2 className="text-2xl font-bold text-gray-800 mb-6 text-center">
-                      {currentQuestion.question}
-                    </h2>
-                    {currentQuestion.showImageWithQuestion && currentQuestion.correctImage && (
-                      <motion.div
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="flex justify-center mb-6"
-                      >
-                        <img 
-                          src={currentQuestion.correctImage} 
-                          alt="Question Image" 
-                          className="max-w-full h-auto rounded-lg shadow-lg"
-                        />
-                      </motion.div>
-                    )}
-                    <div className="grid gap-4">
-                      {currentQuestion.answers.map((answer) => (
-                        <Button
-                          key={answer}
-                          onClick={() => handleAnswer(answer)}
-                          variant="outline"
-                          className="w-full min-h-[3rem] text-base hover:bg-purple-50 transition-colors whitespace-normal text-left justify-start"
-                        >
-                          {answer}
-                        </Button>
-                      ))}
-                    </div>
-                  </>
+                  <QuizQuestion
+                    question={currentQuestion.question}
+                    answers={currentQuestion.answers}
+                    showImageWithQuestion={currentQuestion.showImageWithQuestion}
+                    correctImage={currentQuestion.correctImage}
+                    onAnswer={handleAnswer}
+                  />
                 ) : null}
               </motion.div>
             )}
           </motion.div>
         ) : (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            className="bg-white/90 backdrop-blur-sm rounded-xl p-8 shadow-2xl"
-          >
-            <h1 className="text-4xl font-bold text-gray-800 mb-6 text-center">
-              Вы успешно прошли верификацию!
-            </h1>
-            <div className="flex flex-col items-center space-y-6">
-              <img 
-                src="/lovable-uploads/bf93825c-c5d2-44c9-8646-ee8e8b8ec761.png"
-                alt="Celebration"
-                className="w-full max-w-md rounded-lg shadow-lg mb-6"
-              />
-              <div className="text-lg text-gray-700 space-y-4 text-center max-w-2xl">
-                <p className="mb-4">
-                  Итак Влад, мы поздравляем тебя с днем рождения. От Андрея, Олди и Марка желаем тебе всего самого наилучшего, а главное, чтобы твои цели достигались, а не просто висели в мечтах.
-                </p>
-                <p className="mb-4">
-                  Поэтому от всех нас мы дарим тебе скидку на обучение в любой автошколе в размере 15 000 рублей! Но скидка будет тебе предоставлена именно в момент когда ты уже пойдешь учиться.
-                </p>
-                <p className="text-gray-600 mt-8">
-                  По всем вопросам tg: @Abisual
-                </p>
-              </div>
-            </div>
-          </motion.div>
+          <QuizComplete />
         )}
       </div>
       <FakeCaptcha 
